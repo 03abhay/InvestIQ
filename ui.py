@@ -234,7 +234,12 @@ st.plotly_chart(fig)
 
 # Volume Chart
 st.subheader("Trading Volume")
-fig = px.bar(data, x=data.index, y='Volume')
+# Flatten Volume to 1D array
+volume_data = data['Volume'].values.flatten()
+volume_dates = data.index
+
+fig = go.Figure(data=[go.Bar(x=volume_dates, y=volume_data)])
+fig.update_layout(title='Trading Volume', xaxis_title='Date', yaxis_title='Volume')
 st.plotly_chart(fig)
 
 # Returns Distribution
