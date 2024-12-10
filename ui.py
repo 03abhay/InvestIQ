@@ -234,9 +234,7 @@ st.plotly_chart(fig)
 
 # Volume Chart
 st.subheader("Trading Volume")
-# Reset index to make index a column
-data_reset = data.reset_index()
-fig = px.bar(data_reset, x='Date', y='Volume', title='Trading Volume')
+fig = px.bar(data, x=data.index, y='Volume')
 st.plotly_chart(fig)
 
 # Returns Distribution
