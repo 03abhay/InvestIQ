@@ -254,14 +254,14 @@ fig = px.imshow(corr, text_auto=True, aspect="auto", title='Feature Correlation'
 st.plotly_chart(fig)
 
 # Simple Moving Averages
-data['SMA20'] = data['Close'].rolling(window=20).mean()
-data['SMA50'] = data['Close'].rolling(window=50).mean()
+data['SMA20'] = data['Close'].rolling(window=20, min_periods=1).mean()
+data['SMA50'] = data['Close'].rolling(window=50, min_periods=1).mean()
 
 st.subheader("Moving Averages")
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=data.index, y=data['Close'], name="Close Price"))
-fig.add_trace(go.Scatter(x=data.index, y=data['SMA20'], name="20-Day SMA"))
-fig.add_trace(go.Scatter(x=data.index, y=data['SMA50'], name="50-Day SMA"))
+fig.add_trace(go.Scatter(x=data.index, y=data['Close'], mode='lines', name="Close Price"))
+fig.add_trace(go.Scatter(x=data.index, y=data['SMA20'], mode='lines', name="20-Day SMA"))
+fig.add_trace(go.Scatter(x=data.index, y=data['SMA50'], mode='lines', name="50-Day SMA"))
 fig.update_layout(title='Stock Price with Moving Averages')
 st.plotly_chart(fig)
 st.subheader("Understanding Simple Moving Averages (SMA)")
@@ -300,10 +300,14 @@ future_df = pd.DataFrame({'Days': future_days})
 future_predictions = model.predict(future_df)
 
 # Visualization of actual vs predicted prices
+# Create future dates explicitly
+future_dates = pd.date_range(start=data.index[-1], periods=31, freq='D')[1:]
+
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=data.index, y=data['Close'], name="Actual Close"))
-fig.add_trace(go.Scatter(x=pd.date_range(start=data.index[-1], periods=31, freq='D')[1:], 
+fig.add_trace(go.Scatter(x=data.index, y=data['Close'], mode='lines', name="Actual Close"))
+fig.add_trace(go.Scatter(x=future_dates, 
                          y=future_predictions, 
+                         mode='lines',
                          name="Predicted Close", 
                          line=dict(color='red', dash='dot')))
 fig.update_layout(title='Stock Price Prediction')
