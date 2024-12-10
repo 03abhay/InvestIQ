@@ -124,13 +124,22 @@ st.write(data)
 
 
 
-# Stock Price Chart
+# Stock Price Chart 
 st.subheader("Stock Price Chart")
-fig = go.Figure()
-fig.add_trace(go.Scatter(x=data.index, y=data['Close'], name="Close"))
-fig.add_trace(go.Scatter(x=data.index, y=data['Open'], name="Open"))
-fig.layout.update(title_text="Stock Price Over Time", xaxis_rangeslider_visible=True)
-st.plotly_chart(fig)
+if 'Close' in data and 'Open' in data:
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=data.index, y=data['Close'], name="Close Price", line=dict(color='blue')))
+    fig.add_trace(go.Scatter(x=data.index, y=data['Open'], name="Open Price", line=dict(color='orange')))
+    fig.layout.update(
+        title_text=f"Stock Price Over Time ({ticker})",
+        xaxis_title="Date",
+        yaxis_title="Price",
+        xaxis_rangeslider_visible=True
+    )
+    st.plotly_chart(fig)
+else:
+    st.warning("The data does not have 'Close' or 'Open' columns.")
+
 
 # **NEWS SENTIMENT ANALYSIS FUNCTIONS**
 def fetch_news(stock_ticker):
