@@ -233,9 +233,7 @@ fig = go.Figure(data=[go.Candlestick(x=data.index,
 st.plotly_chart(fig)
 
 # Volume Chart
-st.subheader("Trading Volume")
-# Flatten Volume to 1D array
-volume_data = data['Volume'].values.flatten()
+volume_data = data['Volume']
 volume_dates = data.index
 
 fig = go.Figure(data=[go.Bar(x=volume_dates, y=volume_data)])
