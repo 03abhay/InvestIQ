@@ -9,3 +9,4 @@ scikit-learn
 requests
 beautifulsoup4
 feedparser
+lxml
