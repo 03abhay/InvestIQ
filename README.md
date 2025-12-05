@@ -4,9 +4,7 @@
 A modern, feature-rich stock market analysis platform built with Streamlit, Machine Learning, and Yahoo Finance.
 Get real-time charts, technical indicators, AI-powered price forecasts, and market news — all in one intuitive dashboard.
 
-🚀 Live Demo
-
-🔗 Coming Soon (Deploy on Streamlit Cloud / Render / Vercel)
+🚀 
 
 🌟 Key Features
 🔍 1. Stock Market Overview
